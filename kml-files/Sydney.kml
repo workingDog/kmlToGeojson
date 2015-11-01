@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:gx="http://www.google.com/kml/ext/2.2">
+   <Placemark>
+      <name> Sydney </name>
+      <Point>
+         <coordinates> 151.21037,-33.8526 </coordinates>
+      </Point>
+   </Placemark>
+</kml>
