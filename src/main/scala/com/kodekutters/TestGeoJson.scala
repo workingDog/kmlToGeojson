@@ -15,7 +15,7 @@ object TestGeoJson {
 
   def main(args: Array[String]) {
     test1()
-    kmlToGeoJson("./kml-files/example-no-cdata.kml")
+    kmlToGeoJson("./kml-files/KML_Samples.kml")
   }
 
   def kmlToGeoJson(fileName: String) = {
@@ -23,7 +23,7 @@ object TestGeoJson {
     val geojson = KmlConverter().toGeoJson(kml)
     geojson.foreach(obj => println("geojson obj: \n" + obj))
     println("\n")
-    //  geojson.foreach(obj => println("geojson json: \n" + Json.toJson(obj)))
+    geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
   }
 
   def test1() = {
