@@ -1,4 +1,4 @@
-# Converts Kml to GeoJSON format 
+# Convert Kml to GeoJSON format 
 
 This application "Converter" converts Kml or Kmz files into a GeoJSON representation. 
 
@@ -24,15 +24,16 @@ The following Kml mapping is implemented.
     Kml LinearRing -> GeoJson LinearRing
     Kml Polygon -> GeoJson Polygon
 
-The GeoJSON Feature properties are generated from the following Kml elements:
+The GeoJSON Feature "properties" are generated from the following Kml elements:
 
     name, description, address, phoneNumber, styleUrl, visibility, open
  
-The Kml Placemark "id" attribute is converted to the GeoJSON Feature "id".
+The Kml "id" attribute is converted to the GeoJSON Feature "id".
 
 Everything else is ignored.
  
-Only [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System) coordinate reference is supported and all longitudes and latitudes are in decimal degrees.
+Only [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System) coordinate reference system 
+is supported and all longitudes and latitudes are in decimal degrees.
  
 ## References
  
@@ -52,18 +53,33 @@ For convenience, these libraries are included here in the lib directory.
 
 ## Usage
 
-To use simply type at the command prompt:
+To use, compile and package the code, then simply type at the prompt:
  
     Converter kml_file.kml geojson_file.geojson
  
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
 with the GeoJSON results.
  
+You can also use the "KmlConverter" class in your code, such as: 
+
+    val geojson = KmlConverter().toGeoJson(kml)
+    
+This gives you a GeoJson object, that can easily be converted to JSON, such as:
+  
+    geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
+  
+"KmlConverter" has one generic method "toGeoJson()" that takes any of the implemented Kml objects. 
+See also "TestGeoJson".
+ 
+## Compile and package
+
+The easiest way to compile and package the application is to use [SBT](http://www.scala-sbt.org/).
+ 
 ## Status
 
 work in progress, not tested 
 
-Using scala 2.11.7 and java 8 SDK and SBT.
+Using scala 2.11.7, java 8 and SBT.
 
 
 Ringo Wathelet
