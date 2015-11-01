@@ -48,11 +48,11 @@ object KmlConverter {
 class KmlConverter() {
 
   // implicit to change a KML Coordinate to a GeoJson LatLng
-  implicit class CoordinateToLalLng(location: Coordinate) {
+  implicit class CoordinateToLalLng(coord: Coordinate) {
     def toLatLng(): LatLng = {
-      assert(location.latitude.nonEmpty)
-      assert(location.longitude.nonEmpty)
-      LatLng(location.latitude.get, location.longitude.get)
+      assert(coord.latitude.nonEmpty)
+      assert(coord.longitude.nonEmpty)
+      LatLng(coord.latitude.get, coord.longitude.get)
     }
   }
 
@@ -112,17 +112,17 @@ class KmlConverter() {
     * @return a GeoJson FeatureCollection
     */
   def toGeoJson(featureSet: Seq[KML.Feature]): Option[GEOJS.GeoJson[LatLng]] = {
-    // this list may contain GEOJS.FeatureCollection which will need to be deconstructed into a list of GEOJS.Feature
-    val fList = for (f <- featureSet) yield toGeoJson(f)
-    fList.flatten.toList match {
+    // this list may contain GEOJS.FeatureCollection which will need to be expanded into a list of GEOJS.Feature
+    val geoList = for (f <- featureSet) yield toGeoJson(f)
+    geoList.flatten.toList match {
       // don't process empty list
-      case list if list.isEmpty => None
-      case list =>
+      case theList if theList.isEmpty => None
+      case theList =>
         // the list of individual GEOJS.Feature
         val featureList = new MutableList[GEOJS.Feature[LatLng]]()
-        for (ft <- list) {
-          ft match {
-            // deconstruct any FeatureCollection into a list of GEOJS.Feature
+        for (geoObj <- theList) {
+          geoObj match {
+            // expand any FeatureCollection into a list of GEOJS.Feature
             case f: GEOJS.FeatureCollection[LatLng] => for (ft <- f.features) featureList += ft.asInstanceOf[GEOJS.Feature[LatLng]]
             case f => featureList += f.asInstanceOf[GEOJS.Feature[LatLng]]
           }
