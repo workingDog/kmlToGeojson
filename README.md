@@ -55,7 +55,7 @@ For convenience, these libraries are included here in the lib directory.
 
 To use, compile and package the code, then simply type at the prompt:
  
-    Converter kml_file.kml geojson_file.geojson
+    java -jar Converter.jar kml_file.kml geojson_file.geojson
  
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
 with the GeoJSON results.

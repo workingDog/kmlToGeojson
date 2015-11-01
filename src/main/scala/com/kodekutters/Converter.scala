@@ -20,7 +20,7 @@ object Converter {
   * convert a Kml or Kmz file into a GeoJSON representation
   */
   def main(args: Array[String]) {
-    val usage = """Usage: Converter kml_file geojson_file
+    val usage = """Usage: java -jar Converter.jar kml_file geojson_file
         |example: Convert Sydney.kml Sydney.geojson""".stripMargin
     if (args.isEmpty)
       println(usage)
