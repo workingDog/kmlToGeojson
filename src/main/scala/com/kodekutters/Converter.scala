@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import play.extras.geojson.{GeoJson, LatLng}
 
 /**
-  * convert a Kml file into a GeoJSON representation
+  * convert a Kml or Kmz file into a GeoJSON representation
   *
   * @author R. Wathelet
   *
@@ -16,6 +16,9 @@ import play.extras.geojson.{GeoJson, LatLng}
   */
 object Converter {
 
+/**
+  * convert a Kml or Kmz file into a GeoJSON representation
+  */
   def main(args: Array[String]) {
     val usage =
       """Usage: Converter kml_file geojson_file
@@ -23,14 +26,21 @@ object Converter {
     if (args.length == 0)
       println(usage)
     else {
-      // the output
       val outFile = if (args.length == 2) args(1) else ""
-      // the input
-      if (args(0).toLowerCase.endsWith("kml")) kmlToGeoJson(args(0), outFile)
-      if (args(0).toLowerCase.endsWith("kmz")) kmzToGeoJson(args(0), outFile)
+      // the input file
+      args(0).toLowerCase match {
+        case file if file.endsWith("kml") => kmlToGeoJson(file, outFile)
+        case file if file.endsWith("kmz") => kmzToGeoJson(file, outFile)
+        case s => println("Error --> input file must have extension .kml or .kmz")
+      }
     }
   }
 
+  /**
+    * convert the input kml file and write the GeoJSON results to the output file
+    * @param inFile the input kml file name must have extension .kml
+    * @param outFile the GeoJSON output file
+    */
   def kmlToGeoJson(inFile: String, outFile: String) = {
     val kml = new KmlFileReader().getKmlFromFile(inFile)
     val geojson = KmlConverter().toGeoJson(kml)
@@ -42,6 +52,11 @@ object Converter {
     }
   }
 
+  /**
+    * convert the input kmz file and write the GeoJSON results to the output file
+    * @param inFile the input kmz file name must have extension .kmz
+    * @param outFile the GeoJSON output file
+    */
   def kmzToGeoJson(inFile: String, outFile: String) = {
     val kmlSeq = new KmzFileReader().getKmlFromKmzFile(inFile)
     // convert each kml file to GeoJson
@@ -54,10 +69,15 @@ object Converter {
     }
   }
 
-  private def writeToFile(outFile: String, geojsonSeq: Seq[Option[List[GeoJson[LatLng]]]]) = {
+  /**
+    * write the list of GeoJSON objects to the output file
+    * @param outFile the output file to write the GeoJSON to
+    * @param geojsonList the list of GeoJSON objects to write
+    */
+  private def writeToFile(outFile: String, geojsonList: Seq[Option[List[GeoJson[LatLng]]]]) = {
     val writer = new PrintWriter(new File(outFile))
     try {
-      geojsonSeq.foreach(obj => writer.write(Json.prettyPrint(Json.toJson(obj))))
+      geojsonList.foreach(obj => writer.write(Json.prettyPrint(Json.toJson(obj))))
     } catch {
       case e: IOException => e.printStackTrace()
     }
