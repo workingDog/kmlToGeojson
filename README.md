@@ -26,7 +26,9 @@ Currently the following mapping is implemented.
 
 The GeoJSON Feature "properties" are generated from the following Kml elements:
 
-    name, description, address, phoneNumber, styleUrl, visibility, open, timeSpan (begin and end), timeStamp (when)
+    name, description, address, phoneNumber, styleUrl, visibility, open, 
+    timeSpan (begin and end), timeStamp (when),
+    extendedData (displayName, name, value)
  
 The Kml "id" attribute is converted to the GeoJSON Feature "id".
 

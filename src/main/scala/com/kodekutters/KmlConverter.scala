@@ -94,6 +94,13 @@ class KmlConverter() {
 
       case None => None
     }
+    fp.extendedData.map(extended =>
+      extended.data.foreach(data => {
+        data.displayName.map(d => props += "displayName" -> JsString(d))
+        data.name.map(d => props += "name" -> JsString(d))
+        data.value.map(d => props += "value" -> JsString(d))
+      }))
+
     // other properties from FeaturePart  todo
     Option(JsObject(props))
   }
