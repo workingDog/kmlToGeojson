@@ -1,6 +1,6 @@
 # Convert Kml to GeoJSON format 
 
-This application "converter" converts Kml or Kmz files into a GeoJSON representation. 
+This simple application "converter", converts Kml or Kmz files into a GeoJSON representation. 
 
 [Kml](https://developers.google.com/kml/documentation/kmlreference) is used in Google Earth to display 
 various geographic elements, such as; images, place marks, polygon shapes, 3D models, etc...

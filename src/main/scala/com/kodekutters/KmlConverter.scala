@@ -47,8 +47,8 @@ object KmlConverter {
   */
 class KmlConverter() {
 
-  // implicit to change a KML Coordinate to a GeoJson LatLngAlt
-  implicit class CoordinateToLalLng(coord: Coordinate) {
+  // implicit to change a KML Coordinate to a LatLngAlt CRS
+  implicit class CoordinateToLalLngAlt(coord: Coordinate) {
     def toLatLngAlt(): LatLngAlt = {
       assert(coord.latitude.nonEmpty)
       assert(coord.longitude.nonEmpty)
@@ -163,7 +163,7 @@ class KmlConverter() {
   def toGeoJson(doc: KML.Document): Option[GEOJS.GeoJson[LatLngAlt]] = toGeoJson(doc.features.toList)
 
   /**
-    * create a GeoJson Feature given the input
+    * create a GeoJson Feature given the input   ... needs reworking todo
     *
     * @param kmlGeom the kml geometry, one of Point, LineString, LinearRing, Polygon, MultiGeometry, Model
     * @param props the list of (key,value) properties
