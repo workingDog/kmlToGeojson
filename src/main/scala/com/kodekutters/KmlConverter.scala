@@ -91,6 +91,8 @@ class KmlConverter() {
       case Some(timex) if timex.isInstanceOf[TimeSpan] =>
         props += "timeBegin" -> JsString(timex.asInstanceOf[TimeSpan].begin.getOrElse(""))
         props += "timeEnd" -> JsString(timex.asInstanceOf[TimeSpan].end.getOrElse(""))
+
+      case None => None
     }
     // other properties from FeaturePart  todo
     Option(JsObject(props))

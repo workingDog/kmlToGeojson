@@ -20,8 +20,7 @@ object Converter {
   * convert a Kml or Kmz file into a GeoJSON representation
   */
   def main(args: Array[String]) {
-    val usage = """Usage: java -jar converter-0.1.jar kml_file geojson_file
-        |example: Convert Sydney.kml Sydney.geojson""".stripMargin
+    val usage = """Usage: java -jar converter-0.1.jar kml_file.kml geojson_file.geojson""".stripMargin
     if (args.isEmpty)
       println(usage)
     else {
@@ -44,7 +43,6 @@ object Converter {
     val kml = new KmlFileReader().getKmlFromFile(inFile)
     val geojson = KmlConverter().toGeoJson(kml)
     if (outFile.isEmpty) {
-      geojson.foreach(obj => println(obj))  // testing
       geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
     } else {
       writeToFile(outFile, Seq(geojson))
@@ -61,7 +59,6 @@ object Converter {
     // convert each kml file to GeoJson
     val geojsonSeq = for (kml <- kmlSeq) yield KmlConverter().toGeoJson(kml)
     if (outFile.isEmpty) {
-      geojsonSeq.foreach(obj => println(obj)) // testing
       geojsonSeq.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
     } else {
       writeToFile(outFile, geojsonSeq)
