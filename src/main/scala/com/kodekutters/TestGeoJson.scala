@@ -21,8 +21,8 @@ object TestGeoJson {
   def kmlToGeoJson(fileName: String) = {
     val kml = new KmlFileReader().getKmlFromFile(fileName)
     val geojson = KmlConverter().toGeoJson(kml)
-    geojson.foreach(obj => println("geojson obj: \n" + obj))
-    println("\n")
+  //  geojson.foreach(obj => println("geojson obj: \n" + obj))
+  //  println("\n")
     geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
   }
 

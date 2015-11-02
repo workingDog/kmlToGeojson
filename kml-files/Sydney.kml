@@ -5,6 +5,7 @@
       <Point>
          <coordinates> 151.21037,-33.8526, 12.3 </coordinates>
          <altitudeMode> relativeToGround </altitudeMode>
+         <extrude> true </extrude>
       </Point>
    </Placemark>
 </kml>

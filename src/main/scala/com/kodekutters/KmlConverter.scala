@@ -170,7 +170,7 @@ class KmlConverter() {
     * @param pid the optional id
     * @return a GEOJS.Feature
     */
-  def toGeoFeature[T <: KML.Geometry](kmlGeom: T, props: mutable.ListMap[String, JsValue], pid: Option[JsValue]) = {
+  private def toGeoFeature[T <: KML.Geometry](kmlGeom: T, props: mutable.ListMap[String, JsValue], pid: Option[JsValue]) = {
 
     def addToProps(altMode: Option[KML.AltitudeMode], extrude: Option[Boolean]) = {
       altMode.map(x => props += "altitudeMode" -> JsString(x.toString))
