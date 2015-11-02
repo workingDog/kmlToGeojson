@@ -20,7 +20,7 @@ object Converter {
   * convert a Kml or Kmz file into a GeoJSON representation
   */
   def main(args: Array[String]) {
-    val usage = """Usage: java -jar Converter.jar kml_file geojson_file
+    val usage = """Usage: java -jar converter-0.1.jar kml_file geojson_file
         |example: Convert Sydney.kml Sydney.geojson""".stripMargin
     if (args.isEmpty)
       println(usage)
@@ -30,7 +30,7 @@ object Converter {
       args(0).toLowerCase match {
         case inFile if inFile.endsWith("kml") => kmlToGeoJson(inFile, outFile)
         case inFile if inFile.endsWith("kmz") => kmzToGeoJson(inFile, outFile)
-        case f => println("Error --> input file \"" + f + "\" must have extension .kml or .kmz")
+        case inFile => println("Error --> input file \"" + inFile + "\" must have extension .kml or .kmz")
       }
     }
   }

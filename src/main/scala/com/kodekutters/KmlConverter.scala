@@ -84,6 +84,14 @@ class KmlConverter() {
     fp.styleUrl.map(x => props += "styleUrl" -> JsString(x))
     fp.visibility.map(x => props += "visibility" -> JsBoolean(x))
     fp.open.map(x => props += "open" -> JsBoolean(x))
+    fp.timePrimitive match {
+      case Some(timex) if timex.isInstanceOf[TimeStamp] =>
+        props += "timeStamp" -> JsString(timex.asInstanceOf[TimeStamp].when.getOrElse(""))
+
+      case Some(timex) if timex.isInstanceOf[TimeSpan] =>
+        props += "timeBegin" -> JsString(timex.asInstanceOf[TimeSpan].begin.getOrElse(""))
+        props += "timeEnd" -> JsString(timex.asInstanceOf[TimeSpan].end.getOrElse(""))
+    }
     // other properties from FeaturePart  todo
     Option(JsObject(props))
   }

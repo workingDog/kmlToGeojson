@@ -1,10 +1,9 @@
-name := "kmltogeojson"
 
-version := "1.0"
+name := "converter"
+
+version := "0.1"
 
 scalaVersion := "2.11.7"
-
-resolvers += Resolver.sonatypeRepo("snapshots")
 
 libraryDependencies ++= Seq(
   "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.5",
@@ -12,3 +11,8 @@ libraryDependencies ++= Seq(
 //  "com.typesafe.play.extras" %% "play-geojson" % "1.3.1-SNAPSHOT"
 )
 
+mainClass in (Compile, run) := Some("com.kodekutters.Converter")
+
+mainClass in assembly := Some("com.kodekutters.Converter")
+
+assemblyJarName in assembly := "converter-0.1.jar"
