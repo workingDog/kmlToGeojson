@@ -4,7 +4,7 @@ import java.io.{IOException, File, PrintWriter}
 
 import com.scalakml.io.{KmzFileReader, KmlFileReader}
 import play.api.libs.json.Json
-import play.extras.geojson.{GeoJson, LatLng}
+import play.extras.geojson.GeoJson
 
 /**
   * convert a Kml or Kmz file into a GeoJSON representation
@@ -37,16 +37,12 @@ object Converter {
   /**
     * convert the input kml file and write the GeoJSON results to the output file
     * @param inFile the input kml file name must have extension .kml
-    * @param outFile the GeoJSON output file
+    * @param outFile the GeoJSON output file  new PrintWriter(System.out)
     */
   def kmlToGeoJson(inFile: String, outFile: String) = {
     val kml = new KmlFileReader().getKmlFromFile(inFile)
     val geojson = KmlConverter().toGeoJson(kml)
-    if (outFile.isEmpty) {
-      geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
-    } else {
-      writeToFile(outFile, Seq(geojson))
-    }
+    writeToFile(outFile, Seq(geojson))
   }
 
   /**
@@ -58,11 +54,7 @@ object Converter {
     val kmlSeq = new KmzFileReader().getKmlFromKmzFile(inFile)
     // convert each kml file to GeoJson
     val geojsonSeq = for (kml <- kmlSeq) yield KmlConverter().toGeoJson(kml)
-    if (outFile.isEmpty) {
-      geojsonSeq.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
-    } else {
-      writeToFile(outFile, geojsonSeq)
-    }
+    writeToFile(outFile, geojsonSeq)
   }
 
   /**
@@ -71,7 +63,7 @@ object Converter {
     * @param geojsonList the list of GeoJSON objects to write
     */
   private def writeToFile(outFile: String, geojsonList: Seq[Option[List[GeoJson[LatLngAlt]]]]) = {
-    val writer = new PrintWriter(new File(outFile))
+    val writer = if (outFile.isEmpty) new PrintWriter(System.out) else new PrintWriter(new File(outFile))
     try {
       geojsonList.foreach(obj => writer.write(Json.prettyPrint(Json.toJson(obj))))
     } catch {
