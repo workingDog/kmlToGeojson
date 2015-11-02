@@ -8,11 +8,11 @@ various geographic elements, such as; images, place marks, polygon shapes, 3D mo
 Similarly [GeoJSON](http://geojson.org/) is a format for encoding a variety of geographic data structures.
 
 This scala application uses the [scalakml library](https://github.com/workingDog/scalakml) and 
-the [GeoJSON library](https://github.com/jroper/play-geojson) to do the conversion.
+the [play-geojson library](https://github.com/jroper/play-geojson) to convert Kml to GeoJSON format.
  
 ## Kml to GeoJSON mapping
 
-The following mapping is currently implemented.
+Currently the following mapping is implemented.
 
     Kml object -> list of GeoJson object
     Kml Folder -> GeoJson FeatureCollection
@@ -21,7 +21,7 @@ The following mapping is currently implemented.
     Kml Placemark -> GeoJson Feature
     Kml Point -> GeoJson Point
     Kml LineString -> GeoJson LineString
-    Kml LinearRing -> GeoJson LinearRing
+    Kml LinearRing -> GeoJson LineString
     Kml Polygon -> GeoJson Polygon
 
 The GeoJSON Feature "properties" are generated from the following Kml elements:
@@ -47,11 +47,11 @@ is supported and all longitudes and latitudes are in decimal degrees.
 
 Depends on the scala [scalakml library](https://github.com/workingDog/scalakml)
 and its companion library [scalaxal](https://github.com/workingDog/scalaxal), 
-and on the scala [GeoJSON library](https://github.com/jroper/play-geojson).
+and on the scala [play-geojson library](https://github.com/jroper/play-geojson).
 
 For convenience, these libraries are included here in the lib directory.
 
-## Assembly
+## Packaging
 
 The easiest way to compile and package the application is to use [SBT](http://www.scala-sbt.org/).
 To assemble the application and all its dependencies into a single jar file type:
@@ -67,24 +67,25 @@ Once "converter-0.1.jar" has been generated simply type at the prompt:
     java -jar converter-0.1.jar kml_file.kml geojson_file.geojson
  
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
-with the GeoJSON results.
+with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to console.
  
-You can also use the "KmlConverter" class in your code, such as: 
+You can also use the "KmlConverter.scala" class in your code, such as: 
 
     val geojson = KmlConverter().toGeoJson(kml)
     
-This gives you a GeoJson object that can easily be converted to GeoJSON format, such as:
+This gives you a [play-geojson object](https://github.com/jroper/play-geojson) that 
+can easily be converted to [GeoJSON](http://geojson.org/) format using:
   
     geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
   
-"KmlConverter" has one generic method "toGeoJson()" that takes any of the implemented Kml objects. 
+"KmlConverter.scala" has one generic method "toGeoJson()" that takes any of the implemented Kml objects. 
 See also "TestGeoJson".
 
 ## Status
 
 work in progress, not tested 
 
-Using scala 2.11.7, java 8 and SBT.
+Using scala 2.11.7, java 8 and SBT-0.13.9.
 
 
 Ringo Wathelet

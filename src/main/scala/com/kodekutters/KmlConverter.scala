@@ -36,7 +36,7 @@ object KmlConverter {
   * Kml Placemark -> GeoJson Feature
   * Kml Point -> GeoJson Point
   * Kml LineString -> GeoJson LineString
-  * Kml LinearRing -> GeoJson LinearRing
+  * Kml LinearRing -> GeoJson LineString
   * Kml Polygon -> GeoJson Polygon
   * Kml Feature (Placemark, Document, Folder) -> GeoJson object equivalent
   * Kml sequence of Feature -> GeoJson FeatureCollection
