@@ -15,7 +15,7 @@ object TestGeoJson {
 
   def main(args: Array[String]) {
     test1()
-    kmlToGeoJson("./kml-files/Sydney.kml")
+    kmlToGeoJson("./kml-files/multi.kml")
   }
 
   def kmlToGeoJson(fileName: String) = {

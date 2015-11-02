@@ -94,8 +94,7 @@ class KmlConverter() {
 
       case None => None
     }
-    fp.extendedData.map(extended =>
-      extended.data.foreach(data => {
+    fp.extendedData.map(_.data.foreach(data => {
         data.displayName.map(d => props += "extended_displayName" -> JsString(d))
         data.name.map(d => props += "extended_name" -> JsString(d))
         data.value.map(d => props += "extended_value" -> JsString(d))
@@ -268,7 +267,7 @@ class KmlConverter() {
       case p: KML.Polygon => Seq(toGeoJson(p))
       case p: KML.MultiGeometry => Seq(toGeoJson(p))
       case _ => None
-    }).flatten.asInstanceOf[Seq[GeometryCollection[LatLngAlt]]]
+    }).flatten.toList.asInstanceOf[Seq[GeometryCollection[LatLngAlt]]]
     Option(GEOJS.GeometryCollection(seqGeom))
   }
 
