@@ -96,9 +96,9 @@ class KmlConverter() {
     }
     fp.extendedData.map(extended =>
       extended.data.foreach(data => {
-        data.displayName.map(d => props += "displayName" -> JsString(d))
-        data.name.map(d => props += "name" -> JsString(d))
-        data.value.map(d => props += "value" -> JsString(d))
+        data.displayName.map(d => props += "extended_displayName" -> JsString(d))
+        data.name.map(d => props += "extended_name" -> JsString(d))
+        data.value.map(d => props += "extended_value" -> JsString(d))
       }))
 
     // other properties from FeaturePart  todo

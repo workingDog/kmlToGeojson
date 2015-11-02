@@ -11,11 +11,11 @@ import play.api.libs.json._
 
 object TestGeoJson {
 
-  // example-no-cdata.kml  Sydney.kml  KML_Samples.kml
+  // example-no-cdata.kml  Sydney.kml  KML_Samples.kml  Extended
 
   def main(args: Array[String]) {
     test1()
-    kmlToGeoJson("./kml-files/example-no-cdata.kml")
+    kmlToGeoJson("./kml-files/KML_Samples.kml")
   }
 
   def kmlToGeoJson(fileName: String) = {

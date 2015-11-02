@@ -1,11 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:gx="http://www.google.com/kml/ext/2.2">
-   <Placemark>
-      <name> Sydney </name>
+     <Placemark>
+     <TimeStamp id="ID">
+     <when> 2015-11-02 </when>
+     </TimeStamp>
+       <name>By the lake</name>
+       <ExtendedData>
+         <Data name="holeNumber">
+           <value>5</value>
+         </Data>
+         <Data name="holeYardage">
+           <value>523</value>
+         </Data>
+         <Data name="holePar">
+           <value>5</value>
+         </Data>
+       </ExtendedData>
       <Point>
          <coordinates> 151.21037,-33.8526, 12.3 </coordinates>
          <altitudeMode> relativeToGround </altitudeMode>
          <extrude> true </extrude>
       </Point>
-   </Placemark>
+     </Placemark>
 </kml>
