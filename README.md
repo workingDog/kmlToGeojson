@@ -14,15 +14,15 @@ the [play-geojson library](https://github.com/jroper/play-geojson) to convert Km
 
 Currently the following mapping is implemented.
 
-    Kml object -> list of GeoJson object
-    Kml Folder -> GeoJson FeatureCollection
-    Kml Document -> GeoJson FeatureCollection
-    Kml MultiGeometry -> GeoJson GeometryCollection
-    Kml Placemark -> GeoJson Feature
-    Kml Point -> GeoJson Point
-    Kml LineString -> GeoJson LineString
-    Kml LinearRing -> GeoJson LineString
-    Kml Polygon -> GeoJson Polygon
+    Kml object -> list of GeoJSON object
+    Kml Folder -> GeoJSON FeatureCollection
+    Kml Document -> GeoJSON FeatureCollection
+    Kml MultiGeometry -> GeoJSON GeometryCollection
+    Kml Placemark -> GeoJSON Feature
+    Kml Point -> GeoJSON Point
+    Kml LineString -> GeoJSON LineString
+    Kml LinearRing -> GeoJSON LineString
+    Kml Polygon -> GeoJSON Polygon
 
 The GeoJSON Feature "properties" are generated from the following Kml elements:
 

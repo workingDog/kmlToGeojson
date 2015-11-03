@@ -46,15 +46,19 @@ object TestGeoJson {
 
     val cnv = KmlConverter()
 
-    cnv.toGeoJson(placemark).foreach(obj => println("placemark: " + obj + " \nplacemark: " + Json.toJson(obj) + "\n"))
-    cnv.toGeoJson(point).foreach(obj => println("point: " + obj + " \npoint: " + Json.toJson(obj)+ "\n"))
-    cnv.toGeoJson(lineString).foreach(obj => println("lineString: " + obj + " \nlineString: " + Json.toJson(obj)+ "\n"))
-    cnv.toGeoJson(linearRing).foreach(obj => println("linearRing: " + obj + " \nlinearRing: " + Json.toJson(obj)+ "\n"))
-    cnv.toGeoJson(poly).foreach(obj => println("poly: " + obj + " \npoly: " + Json.toJson(obj)+ "\n"))
+    // Features
     cnv.toGeoJson(doc).foreach(obj => println("doc: " + obj + " \ndoc: " + Json.toJson(obj)+ "\n"))
     cnv.toGeoJson(folder).foreach(obj => println("folder: " + obj + " \nfolder: " + Json.toJson(obj)+ "\n"))
+    cnv.toGeoJson(placemark).foreach(obj => println("placemark: " + obj + " \nplacemark: " + Json.toJson(obj) + "\n"))
     cnv.toGeoJson(seqOfFeatures).foreach(obj => println("seqOfFeatures: " + obj + " \nseqOfFeatures: " + Json.toJson(obj)+ "\n"))
     cnv.toGeoJson(kml).foreach(obj => println("kml: " + obj + " \nkml: " + Json.toJson(obj)+ "\n"))
+
+    // individual geometries with the bbox = None
+    cnv.toGeoJson(point, None).foreach(obj => println("point: " + obj + " \npoint: " + Json.toJson(obj)+ "\n"))
+    cnv.toGeoJson(lineString, None).foreach(obj => println("lineString: " + obj + " \nlineString: " + Json.toJson(obj)+ "\n"))
+    cnv.toGeoJson(linearRing, None).foreach(obj => println("linearRing: " + obj + " \nlinearRing: " + Json.toJson(obj)+ "\n"))
+    cnv.toGeoJson(poly, None).foreach(obj => println("poly: " + obj + " \npoly: " + Json.toJson(obj)+ "\n"))
+
     println("--------- end of test1 ----------\n")
   }
 

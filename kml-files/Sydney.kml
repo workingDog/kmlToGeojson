@@ -1,10 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:gx="http://www.google.com/kml/ext/2.2">
      <Placemark id="placemarkid">
+       <Region>
+           <LatLonAltBox>
+             <north>37.430419921875</north>
+             <south>37.41943359375</south>
+             <east>-122.080078125</east>
+             <west>-122.091064453125</west>
+           </LatLonAltBox>
+           <Lod>
+             <minLodPixels>128</minLodPixels>
+           </Lod>
+         </Region>
+     <name>Sydney</name>
      <TimeStamp id="ID">
      <when> 2015-11-02 </when>
      </TimeStamp>
-       <name>By the lake</name>
        <ExtendedData>
          <Data name="holeNumber">
            <value>5</value>

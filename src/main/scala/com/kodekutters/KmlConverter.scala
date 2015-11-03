@@ -10,7 +10,6 @@ import play.extras.geojson._
 import scala.collection.mutable
 import scala.collection.mutable.MutableList
 
-// is this correct? why not scala.Seq
 import scala.collection.immutable.Seq
 
 /**
@@ -47,7 +46,7 @@ object KmlConverter {
   */
 class KmlConverter() {
 
-  // implicit to change a KML Coordinate to a LatLngAlt
+  // implicit to convert a KML Coordinate to a LatLngAlt
   implicit class CoordinateToLalLngAlt(coord: Coordinate) {
     def toLatLngAlt(): LatLngAlt = {
       assert(coord.latitude.nonEmpty)
@@ -162,72 +161,81 @@ class KmlConverter() {
   def toGeoJson(doc: KML.Document): Option[GEOJS.GeoJson[LatLngAlt]] = toGeoJson(doc.features.toList)
 
   /**
-    * create a GeoJson Feature given the input   ... needs reworking todo
-    *
-    * @param kmlGeom the kml geometry, one of Point, LineString, LinearRing, Polygon, MultiGeometry, Model
-    * @param props the list of (key,value) properties
-    * @param pid the optional id
-    * @return a GEOJS.Feature
-    */
-  private def toGeoFeature[T <: KML.Geometry](kmlGeom: T, props: mutable.ListMap[String, JsValue], pid: Option[JsValue]) = {
-
-    def addToProps(altMode: Option[KML.AltitudeMode], extrude: Option[Boolean]) = {
-      altMode.map(x => props += "altitudeMode" -> JsString(x.toString))
-      extrude.map(x => props += "extrude" -> JsBoolean(x))
-    }
-
-    val geojson: Option[GEOJS.GeoJson[LatLngAlt]] = kmlGeom match {
-      case p: KML.Point => addToProps(p.altitudeMode, p.extrude); toGeoJson(p)
-      case p: KML.LineString => addToProps(p.altitudeMode, p.extrude); toGeoJson(p)
-      case p: KML.LinearRing => addToProps(p.altitudeMode, p.extrude); toGeoJson(p)
-      case p: KML.Polygon => addToProps(p.altitudeMode, p.extrude); toGeoJson(p)
-      case p: KML.MultiGeometry => toGeoJson(p)
-      case p: KML.Model => None //  COLLADA todo
-    }
-
-    geojson.asInstanceOf[Option[GEOJS.Geometry[LatLngAlt]]].map(p =>
-      Option(GEOJS.Feature[LatLngAlt](p, properties = Option(JsObject(props)), id = pid)))
-  }
-
-  /**
     * convert a Kml Placemark into a GeoJson Feature
     * @param placemark the Kml placemark object
     * @return a GeoJson Feature representation of the Kml Placemark
     */
   def toGeoJson(placemark: Placemark): Option[GEOJS.GeoJson[LatLngAlt]] = {
     val pid = placemark.id.flatMap(x => Option(Json.toJson(x)))
-    placemark.geometry.flatMap(toGeoFeature(_, properties(placemark.featurePart), pid)).flatten
+    val props = properties(placemark.featurePart)
+
+    def addToProps(altMode: Option[KML.AltitudeMode], extrude: Option[Boolean]) = {
+      altMode.map(x => props += "altitudeMode" -> JsString(x.toString))
+      extrude.map(x => props += "extrude" -> JsBoolean(x))
+    }
+
+    val geojson: Option[GEOJS.GeoJson[LatLngAlt]] = placemark.geometry.flatMap( {
+      case p: KML.Point => addToProps(p.altitudeMode, p.extrude); toGeoJson(p, bbox(placemark))
+      case p: KML.LineString => addToProps(p.altitudeMode, p.extrude); toGeoJson(p, bbox(placemark))
+      case p: KML.LinearRing => addToProps(p.altitudeMode, p.extrude); toGeoJson(p, bbox(placemark))
+      case p: KML.Polygon => addToProps(p.altitudeMode, p.extrude); toGeoJson(p, bbox(placemark))
+      case p: KML.MultiGeometry => toGeoJson(p, bbox(placemark))
+      case p: KML.Model => None //  COLLADA todo
+    })
+
+    geojson.asInstanceOf[Option[GEOJS.Geometry[LatLngAlt]]].flatMap(p =>
+      Option(GEOJS.Feature[LatLngAlt](p, properties = Option(JsObject(props)), id = pid)))
+
+  }
+
+  private def bbox(placemark: Placemark): Option[(LatLngAlt, LatLngAlt)] = {
+    // north Specifies the latitude of the north edge of the bounding box
+    // south Specifies the latitude of the south edge of the bounding box
+    // east Specifies the longitude of the east edge of the bounding box
+    // west Specifies the longitude of the west edge of the bounding box
+    val bbox = placemark.featurePart.region.map(reg => reg.latLonAltBox.map(llb => {
+      assert(llb.north.nonEmpty)
+      assert(llb.east.nonEmpty)
+      assert(llb.south.nonEmpty)
+      assert(llb.west.nonEmpty)
+      (new LatLngAlt(llb.north.get, llb.east.get, llb.minAltitude), new LatLngAlt(llb.south.get, llb.west.get, llb.maxAltitude))
+    }))
+
+    bbox.flatten
   }
 
   /**
     * convert a Kml Point into a GeoJson Point object
     * @param p the Kml Point input
+    * @param bbox the bounding box
     * @return a GeoJson Point object
     */
-  def toGeoJson(p: KML.Point): Option[GEOJS.GeoJson[LatLngAlt]] = p.coordinates.flatMap(c => Option(GEOJS.Point(c.toLatLngAlt())))
+  def toGeoJson(p: KML.Point, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
+    p.coordinates.flatMap(c => Option(GEOJS.Point(c.toLatLngAlt(), bbox)))
+  }
 
   /**
     * convert a Kml LineString into a GeoJson LineString object
     * @param ls the Kml LineString input
     * @return a GeoJson LineString object
     */
-  def toGeoJson(ls: KML.LineString): Option[GEOJS.GeoJson[LatLngAlt]] = toLineString(ls.coordinates)
+  def toGeoJson(ls: KML.LineString, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = toLineString(ls.coordinates, bbox)
 
   /**
     * convert a Kml LinearRing into a GeoJson LineString object
     * @param lr the Kml LinearRing input
     * @return a GeoJson LineString object
     */
-  def toGeoJson(lr: KML.LinearRing): Option[GEOJS.GeoJson[LatLngAlt]] = toLineString(lr.coordinates)
+  def toGeoJson(lr: KML.LinearRing, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = toLineString(lr.coordinates, bbox)
 
   /**
     * create a GeoJson LineString given the list of Kml Coordinates
     * @param coords the coordinate of the LineString
     * @return a GeoJson LineString
     */
-  private def toLineString(coords: Option[scala.Seq[Coordinate]]): Option[GEOJS.GeoJson[LatLngAlt]] = {
+  private def toLineString(coords: Option[scala.Seq[Coordinate]], bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
     val laloList = for (loc <- coords.getOrElse(List.empty)) yield loc.toLatLngAlt()
-    Option(GEOJS.LineString(laloList.toList.toSeq))
+    Option(GEOJS.LineString(laloList.toList.toSeq, bbox))
   }
 
   /**
@@ -235,7 +243,7 @@ class KmlConverter() {
     * @param poly the Kml Polygon input
     * @return a GeoJson Polygon object
     */
-  def toGeoJson(poly: KML.Polygon): Option[GEOJS.GeoJson[LatLngAlt]] = {
+  def toGeoJson(poly: KML.Polygon, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
     val locationList = new MutableList[scala.Seq[Coordinate]]()
 
     // first the outer boundary
@@ -249,7 +257,7 @@ class KmlConverter() {
         ring => locationList ++ ring.coordinates.getOrElse(List.empty)))
 
     val laloList = for (loc <- locationList.flatten.toList) yield loc.toLatLngAlt()
-    Option(GEOJS.Polygon(Seq(laloList)))
+    Option(GEOJS.Polygon(Seq(laloList), bbox))
   }
 
   /**
@@ -257,13 +265,13 @@ class KmlConverter() {
     * @param multiGeom the Kml MultiGeometry input
     * @return a GeoJson GeometryCollection object
     */
-  def toGeoJson(multiGeom: KML.MultiGeometry): Option[GEOJS.GeoJson[LatLngAlt]] = {
+  def toGeoJson(multiGeom: KML.MultiGeometry, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
     val seqGeom = multiGeom.geometries.flatMap({
-      case p: KML.Point => Seq(toGeoJson(p))
-      case p: KML.LineString => Seq(toGeoJson(p))
-      case p: KML.LinearRing => Seq(toGeoJson(p))
-      case p: KML.Polygon => Seq(toGeoJson(p))
-      case p: KML.MultiGeometry => Seq(toGeoJson(p))
+      case p: KML.Point => Seq(toGeoJson(p, bbox))
+      case p: KML.LineString => Seq(toGeoJson(p, bbox))
+      case p: KML.LinearRing => Seq(toGeoJson(p, bbox))
+      case p: KML.Polygon => Seq(toGeoJson(p, bbox))
+      case p: KML.MultiGeometry => Seq(toGeoJson(p, bbox))
       case _ => None
     }).flatten.toList.asInstanceOf[Seq[GeometryCollection[LatLngAlt]]]
     Option(GEOJS.GeometryCollection(seqGeom))
