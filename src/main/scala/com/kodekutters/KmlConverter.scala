@@ -39,6 +39,7 @@ object KmlConverter {
   * Kml Polygon -> GeoJson Polygon
   * Kml Feature (Placemark, Document, Folder) -> GeoJson object equivalent
   * Kml sequence of Feature -> GeoJson FeatureCollection
+  * Kml region latLonAltBox -> GeoJson bbox
   *
   *
   * ref: https://github.com/workingDog/scalakml
@@ -194,10 +195,10 @@ class KmlConverter() {
     * @return a bounding box, i.e. a Tuple of (LatLngAlt,LatLngAlt)
     */
   private def bbox(placemark: Placemark): Option[(LatLngAlt, LatLngAlt)] = {
-    // north Specifies the latitude of the north edge of the bounding box
-    // south Specifies the latitude of the south edge of the bounding box
-    // east Specifies the longitude of the east edge of the bounding box
-    // west Specifies the longitude of the west edge of the bounding box
+    // north specifies the latitude of the north edge of the bounding box
+    // south specifies the latitude of the south edge of the bounding box
+    // east specifies the longitude of the east edge of the bounding box
+    // west specifies the longitude of the west edge of the bounding box
     val bbox = placemark.featurePart.region.map(reg => reg.latLonAltBox.map(llb => {
       assert(llb.north.nonEmpty)
       assert(llb.east.nonEmpty)
@@ -256,7 +257,7 @@ class KmlConverter() {
     // first the outer boundary
     poly.outerBoundaryIs.foreach(
       boundary => boundary.linearRing.foreach(
-        ring => locationList += ring.coordinates.getOrElse(List.empty)))
+        ring => ring.coordinates.foreach(c => locationList += c)))
 
     // then the holes
     poly.innerBoundaryIs.foreach(

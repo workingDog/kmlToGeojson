@@ -2,10 +2,12 @@ package com.kodekutters
 
 import com.scalakml.{kml => KML}
 import play.extras.{geojson => GEOJS}
-import com.scalakml.io.KmlFileReader
+import com.scalakml.io.{KmlPrintWriter, KmlFileReader}
 import com.scalakml.kml._
 import scala.collection.immutable.Seq
 import play.api.libs.json._
+
+import scala.xml.PrettyPrinter
 
 // just testing things
 
@@ -20,6 +22,9 @@ object TestGeoJson {
 
   def kmlToGeoJson(fileName: String) = {
     val kml = new KmlFileReader().getKmlFromFile(fileName)
+  //  println("kml: "+kml+"\n")
+  //  if (kml.isDefined) new KmlPrintWriter().write(kml, new PrettyPrinter(80, 3))
+
     val geojson = KmlConverter().toGeoJson(kml)
   //  geojson.foreach(obj => println("geojson obj: \n" + obj))
   //  println("\n")
