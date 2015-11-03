@@ -7,10 +7,11 @@ import scala.collection.immutable.Seq
 
 /**
   * A latitude longitude and altitude CRS, for use with WGS84 ( == EPSG:4326).
-  * Extension of play.extras.geojson.LatLng see https://github.com/jroper/play-geojson
-  * @param lat The latitude.
-  * @param lng The longitude.
-  * @param alt The altitude (relative to the WGS84 ellipsoid ?)
+  * Extension of the original code play.extras.geojson.LatLng see https://github.com/jroper/play-geojson
+  * @param lat The latitude in decimal degrees.
+  * @param lng The longitude in decimal degrees.
+  * @param alt The altitude in meters, default relative to the WGS84 ellipsoid,
+  *            but can be interpreted according to the AltitudeMode of a Feature
   */
 case class LatLngAlt(lat: Double, lng: Double, alt: Option[Double])
 

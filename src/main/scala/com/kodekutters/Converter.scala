@@ -13,6 +13,8 @@ import play.extras.geojson.GeoJson
   *
   *         ref: https://developers.google.com/kml/documentation/kmlreference
   *         ref: http://geojson.org/geojson-spec.html
+  *         ref: https://github.com/workingDog/scalakml
+  *         ref: https://github.com/jroper/play-geojson
   */
 object Converter {
 

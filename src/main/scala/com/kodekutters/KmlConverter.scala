@@ -47,7 +47,7 @@ object KmlConverter {
   */
 class KmlConverter() {
 
-  // implicit to change a KML Coordinate to a LatLngAlt CRS
+  // implicit to change a KML Coordinate to a LatLngAlt
   implicit class CoordinateToLalLngAlt(coord: Coordinate) {
     def toLatLngAlt(): LatLngAlt = {
       assert(coord.latitude.nonEmpty)
@@ -204,9 +204,7 @@ class KmlConverter() {
     * @param p the Kml Point input
     * @return a GeoJson Point object
     */
-  def toGeoJson(p: KML.Point): Option[GEOJS.GeoJson[LatLngAlt]] = {
-    if (p.coordinates.nonEmpty) Option(GEOJS.Point(p.coordinates.get.toLatLngAlt())) else None
-  }
+  def toGeoJson(p: KML.Point): Option[GEOJS.GeoJson[LatLngAlt]] = p.coordinates.flatMap(c => Option(GEOJS.Point(c.toLatLngAlt())))
 
   /**
     * convert a Kml LineString into a GeoJson LineString object
