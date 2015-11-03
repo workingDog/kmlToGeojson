@@ -188,6 +188,11 @@ class KmlConverter() {
 
   }
 
+  /**
+    * create a bbox from the input Kml Placemark Region latLonAltBox
+    * @param placemark the input Kml Placemark
+    * @return a bounding box, i.e. a Tuple of (LatLngAlt,LatLngAlt)
+    */
   private def bbox(placemark: Placemark): Option[(LatLngAlt, LatLngAlt)] = {
     // north Specifies the latitude of the north edge of the bounding box
     // south Specifies the latitude of the south edge of the bounding box
@@ -217,6 +222,7 @@ class KmlConverter() {
   /**
     * convert a Kml LineString into a GeoJson LineString object
     * @param ls the Kml LineString input
+    * @param bbox the bounding box
     * @return a GeoJson LineString object
     */
   def toGeoJson(ls: KML.LineString, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = toLineString(ls.coordinates, bbox)
@@ -224,6 +230,7 @@ class KmlConverter() {
   /**
     * convert a Kml LinearRing into a GeoJson LineString object
     * @param lr the Kml LinearRing input
+    * @param bbox the bounding box
     * @return a GeoJson LineString object
     */
   def toGeoJson(lr: KML.LinearRing, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = toLineString(lr.coordinates, bbox)
@@ -231,6 +238,7 @@ class KmlConverter() {
   /**
     * create a GeoJson LineString given the list of Kml Coordinates
     * @param coords the coordinate of the LineString
+    * @param bbox the bounding box
     * @return a GeoJson LineString
     */
   private def toLineString(coords: Option[scala.Seq[Coordinate]], bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
@@ -241,6 +249,7 @@ class KmlConverter() {
   /**
     * convert a Kml Polygon into a GeoJson Polygon object
     * @param poly the Kml Polygon input
+    * @param bbox the bounding box
     * @return a GeoJson Polygon object
     */
   def toGeoJson(poly: KML.Polygon, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
@@ -263,6 +272,7 @@ class KmlConverter() {
   /**
     * convert a Kml MultiGeometry into a GeoJson GeometryCollection object
     * @param multiGeom the Kml MultiGeometry input
+    * @param bbox the bounding box
     * @return a GeoJson GeometryCollection object
     */
   def toGeoJson(multiGeom: KML.MultiGeometry, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {

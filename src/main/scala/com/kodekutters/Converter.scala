@@ -39,9 +39,9 @@ object Converter {
   /**
     * convert the input kml file and write the GeoJSON results to the output file
     * @param inFile the input kml file name must have extension .kml
-    * @param outFile the GeoJSON output file  new PrintWriter(System.out)
+    * @param outFile the GeoJSON output file
     */
-  def kmlToGeoJson(inFile: String, outFile: String) = {
+  private def kmlToGeoJson(inFile: String, outFile: String) = {
     val kml = new KmlFileReader().getKmlFromFile(inFile)
     val geojson = KmlConverter().toGeoJson(kml)
     writeToFile(outFile, Seq(geojson))
@@ -52,7 +52,7 @@ object Converter {
     * @param inFile the input kmz file name must have extension .kmz
     * @param outFile the GeoJSON output file
     */
-  def kmzToGeoJson(inFile: String, outFile: String) = {
+  private def kmzToGeoJson(inFile: String, outFile: String) = {
     val kmlSeq = new KmzFileReader().getKmlFromKmzFile(inFile)
     // convert each kml file to GeoJson
     val geojsonSeq = for (kml <- kmlSeq) yield KmlConverter().toGeoJson(kml)
@@ -61,7 +61,7 @@ object Converter {
 
   /**
     * write the list of GeoJSON objects to the output file
-    * @param outFile the output file to write the GeoJSON to
+    * @param outFile the output file to write the GeoJSON to, if empty to System.out
     * @param geojsonList the list of GeoJSON objects to write
     */
   private def writeToFile(outFile: String, geojsonList: Seq[Option[List[GeoJson[LatLngAlt]]]]) = {
