@@ -199,15 +199,13 @@ class KmlConverter() {
     // south specifies the latitude of the south edge of the bounding box
     // east specifies the longitude of the east edge of the bounding box
     // west specifies the longitude of the west edge of the bounding box
-    val bbox = placemark.featurePart.region.map(reg => reg.latLonAltBox.map(llb => {
+    placemark.featurePart.region.flatMap(reg => reg.latLonAltBox.map(llb => {
       assert(llb.north.nonEmpty)
       assert(llb.east.nonEmpty)
       assert(llb.south.nonEmpty)
       assert(llb.west.nonEmpty)
       (new LatLngAlt(llb.north.get, llb.east.get, llb.minAltitude), new LatLngAlt(llb.south.get, llb.west.get, llb.maxAltitude))
     }))
-
-    bbox.flatten
   }
 
   /**
