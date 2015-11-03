@@ -215,9 +215,7 @@ class KmlConverter() {
     * @param bbox the bounding box
     * @return a GeoJson Point object
     */
-  def toGeoJson(p: KML.Point, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
-    p.coordinates.flatMap(c => Option(GEOJS.Point(c.toLatLngAlt(), bbox)))
-  }
+  def toGeoJson(p: KML.Point, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = p.coordinates.flatMap(c => Option(GEOJS.Point(c.toLatLngAlt(), bbox)))
 
   /**
     * convert a Kml LineString into a GeoJson LineString object
@@ -263,7 +261,7 @@ class KmlConverter() {
     // then the holes
     poly.innerBoundaryIs.foreach(
       boundary => boundary.linearRing.foreach(
-        ring => locationList ++ ring.coordinates.getOrElse(List.empty)))
+        ring => ring.coordinates.foreach(c => locationList += c)))
 
     val laloList = for (loc <- locationList.flatten.toList) yield loc.toLatLngAlt()
     Option(GEOJS.Polygon(Seq(laloList), bbox))
