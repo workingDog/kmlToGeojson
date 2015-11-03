@@ -23,6 +23,7 @@ Currently the following mapping is implemented.
     Kml LineString -> GeoJSON LineString
     Kml LinearRing -> GeoJSON LineString
     Kml Polygon -> GeoJSON Polygon
+    Kml LatLonAltBox -> GeoJSON bbox
 
 The GeoJSON Feature "properties" are generated from the following Kml elements:
 
