@@ -47,14 +47,18 @@ object KmlConverter {
   */
 class KmlConverter() {
 
-  // implicit to convert a KML Coordinate to a LatLngAlt
-  implicit class CoordinateToLalLngAlt(coord: Coordinate) {
-    def toLatLngAlt(): LatLngAlt = {
+  import scala.language.implicitConversions
+
+  /**
+    * convert a KML Coordinate to a LatLngAlt
+    * @param coord the input KML coordinate
+    * @return a LatLngAlt object
+    */
+  implicit def coordToLalLngAlt(coord: Coordinate): LatLngAlt = {
       assert(coord.latitude.nonEmpty)
       assert(coord.longitude.nonEmpty)
       LatLngAlt(coord.latitude.get, coord.longitude.get, coord.altitude)
     }
-  }
 
   /**
     * convert a Kml object into a list of GeoJson objects
@@ -214,7 +218,7 @@ class KmlConverter() {
     * @param bbox the bounding box
     * @return a GeoJson Point object
     */
-  def toGeoJson(p: KML.Point, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = p.coordinates.flatMap(c => Option(GEOJS.Point(c.toLatLngAlt(), bbox)))
+  def toGeoJson(p: KML.Point, bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = p.coordinates.flatMap(c => Option(GEOJS.Point(c, bbox)))
 
   /**
     * convert a Kml LineString into a GeoJson LineString object
@@ -239,7 +243,7 @@ class KmlConverter() {
     * @return a GeoJson LineString
     */
   private def toLineString(coords: Option[scala.Seq[Coordinate]], bbox: Option[(LatLngAlt, LatLngAlt)]): Option[GEOJS.GeoJson[LatLngAlt]] = {
-    val laloList = for (loc <- coords.getOrElse(List.empty)) yield loc.toLatLngAlt()
+    val laloList = for (loc <- coords.getOrElse(List.empty)) yield coordToLalLngAlt(loc)
     Option(GEOJS.LineString(laloList.toList.toSeq, bbox))
   }
 
@@ -262,7 +266,7 @@ class KmlConverter() {
       boundary => boundary.linearRing.foreach(
         ring => ring.coordinates.foreach(c => locationList += c)))
 
-    val laloList = for (loc <- locationList.flatten.toList) yield loc.toLatLngAlt()
+    val laloList = for (loc <- locationList.flatten.toList) yield coordToLalLngAlt(loc)
     Option(GEOJS.Polygon(Seq(laloList), bbox))
   }
 
