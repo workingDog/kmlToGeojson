@@ -67,6 +67,7 @@ object Converter {
   private def writeToFile(outFile: String, geojsonList: Seq[Option[List[GeoJson[LatLngAlt]]]]) = {
     val writer = if (outFile.isEmpty) new PrintWriter(System.out) else new PrintWriter(new File(outFile))
     try {
+      // convert the list of geoJson objects to GeoJSON format and write them out
       geojsonList.foreach(obj => writer.write(Json.prettyPrint(Json.toJson(obj))))
     } catch {
       case e: IOException => e.printStackTrace()

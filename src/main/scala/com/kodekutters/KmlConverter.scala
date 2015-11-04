@@ -9,7 +9,6 @@ import play.extras.geojson._
 
 import scala.collection.mutable
 import scala.collection.mutable.MutableList
-
 import scala.collection.immutable.Seq
 
 /**
@@ -121,7 +120,7 @@ class KmlConverter() {
       case f: PhotoOverlay => None // todo
       case f: ScreenOverlay => None // todo
       case f: GroundOverlay => None // todo
-      // case f: Tour => None  // gx  todo
+      // case f: GX.Tour => None  //  todo
       case _ => None
     }
   }
@@ -187,6 +186,8 @@ class KmlConverter() {
       case p: KML.Polygon => addToProps(p.altitudeMode, p.extrude); toGeoJson(p)
       case p: KML.MultiGeometry => toGeoJson(p)
       case p: KML.Model => None //  COLLADA todo
+      // case p: GX.Track => Seq(toGeoJson(p))  // todo
+      // case p: GX.MultiTrack => Seq(toGeoJson(p))  // todo
     })
 
     geojson.asInstanceOf[Option[GEOJS.Geometry[LatLngAlt]]].flatMap(p =>
@@ -194,9 +195,9 @@ class KmlConverter() {
   }
 
   /**
-    * create a bbox from the input Kml Placemark Region latLonAltBox
+    * create a bbox from the input Kml Feature Region latLonAltBox
     * @param feature the input Kml Feature, e.g. Placemark
-    * @return a bounding box, i.e. a Tuple of (LatLngAlt,LatLngAlt)
+    * @return a bounding box (south-west, north-east), i.e. a Tuple of (LatLngAlt,LatLngAlt)
     */
   private def bbox(feature: KML.Feature): Option[(LatLngAlt, LatLngAlt)] = {
     feature.featurePart.region.flatMap(reg => reg.latLonAltBox.map(llb => {
@@ -204,7 +205,7 @@ class KmlConverter() {
       assert(llb.east.nonEmpty)  // south specifies the latitude of the south edge of the bounding box
       assert(llb.south.nonEmpty) // east specifies the longitude of the east edge of the bounding box
       assert(llb.west.nonEmpty)  // west specifies the longitude of the west edge of the bounding box
-      (new LatLngAlt(llb.north.get, llb.east.get, llb.minAltitude), new LatLngAlt(llb.south.get, llb.west.get, llb.maxAltitude))
+      (new LatLngAlt(llb.south.get, llb.west.get, llb.maxAltitude), new LatLngAlt(llb.north.get, llb.east.get, llb.minAltitude))
     }))
   }
 
@@ -272,6 +273,8 @@ class KmlConverter() {
       case p: KML.LinearRing => Seq(toGeoJson(p))
       case p: KML.Polygon => Seq(toGeoJson(p))
       case p: KML.MultiGeometry => Seq(toGeoJson(p))
+      // case p: GX.Track => Seq(toGeoJson(p))  // todo
+      // case p: GX.MultiTrack => Seq(toGeoJson(p))  // todo
       case _ => None
     }).flatten.toList.asInstanceOf[Seq[GeometryCollection[LatLngAlt]]]
     Option(GEOJS.GeometryCollection(seqGeom))
