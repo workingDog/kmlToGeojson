@@ -52,7 +52,7 @@ Depends on the scala [scalakml library](https://github.com/workingDog/scalakml)
 and its companion library [scalaxal](https://github.com/workingDog/scalaxal), 
 and on the scala [play-geojson library](https://github.com/jroper/play-geojson).
 
-For convenience, these libraries are included here in the lib directory.
+For convenience, some of these libraries are included here in the lib directory.
 
 ## Packaging
 
