@@ -86,7 +86,7 @@ See also "TestGeoJson".
 
 ## Status
 
-work in progress, not tested 
+not tested 
 
 Using scala 2.11.7, java 8 and SBT-0.13.9.
 
