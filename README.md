@@ -86,9 +86,9 @@ See also "TestGeoJson".
 
 ## Status
 
-not tested 
+stable
 
-Using scala 2.11.7, java 8 and SBT-0.13.9.
+Using scala 2.11.8, java 8 and SBT-0.13.11.
 
 
 Ringo Wathelet
