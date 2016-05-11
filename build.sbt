@@ -1,18 +1,26 @@
+organization := "github.com.workingDog"
 
-name := "converter"
+name := "kmlToGeojson"
 
-version := "0.1"
+version := (version in ThisBuild).value
 
 scalaVersion := "2.11.8"
 
+crossScalaVersions := Seq("2.11.8")
+
 libraryDependencies ++= Seq(
   "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.5",
-  "com.typesafe.play" % "play-json_2.11" % "2.5.1",
-  "com.typesafe.play.extras" % "play-geojson_2.11" % "1.4.0"
+  "com.typesafe.play" % "play-json_2.11" % "2.5.3",
+  "com.typesafe.play.extras" % "play-geojson_2.11" % "1.4.0",
+  "com.github.workingDog" % "scalakml_2.11" % "1.0"
 )
 
-mainClass in (Compile, run) := Some("com.kodekutters.Converter")
+homepage := Some(url("https://github.com/workingDog/kmlToGeojson"))
 
-mainClass in assembly := Some("com.kodekutters.Converter")
+licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-assemblyJarName in assembly := "converter-0.1.jar"
+mainClass in (Compile, run) := Some("com.kodekutters.KmlToGeojson")
+
+mainClass in assembly := Some("com.kodekutters.KmlToGeojson")
+
+assemblyJarName in assembly := "KmlToGeojson-1.0.jar"

@@ -12,7 +12,7 @@ import scala.collection.mutable.MutableList
 import scala.collection.immutable.Seq
 
 /**
-  * convert Kml objects into GeoJson objects
+  * converts Kml objects into GeoJson objects
   *
   * @author R. Wathelet
   *
@@ -24,7 +24,7 @@ object KmlConverter {
 }
 
 /**
-  * convert Kml objects into GeoJson objects
+  * converts Kml objects into GeoJson objects
   *
   *
   * Kml object -> GeoJson object

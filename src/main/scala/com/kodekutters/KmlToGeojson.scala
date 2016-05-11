@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import play.extras.geojson.GeoJson
 
 /**
-  * convert a Kml or Kmz file into a GeoJSON representation
+  * converts a Kml or Kmz file into a GeoJSON representation
   *
   * @author R. Wathelet
   *
@@ -16,13 +16,13 @@ import play.extras.geojson.GeoJson
   *         ref: https://github.com/workingDog/scalakml
   *         ref: https://github.com/jroper/play-geojson
   */
-object Converter {
+object KmlToGeojson {
 
 /**
   * convert a Kml or Kmz file into a GeoJSON representation
   */
   def main(args: Array[String]) {
-    val usage = """Usage: java -jar converter-0.1.jar kml_file.kml geojson_file.geojson""".stripMargin
+    val usage = """Usage: java -jar KmlToGeojson-1.0.jar kml_file.kml geojson_file.geojson""".stripMargin
     if (args.isEmpty)
       println(usage)
     else {

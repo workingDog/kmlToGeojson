@@ -1,6 +1,6 @@
 # Convert Kml to GeoJSON format 
 
-This simple application "converter", converts Kml or Kmz files into a GeoJSON representation. 
+This simple application "KmlToGeojson", converts Kml or Kmz files into a GeoJSON representation. 
 
 [Kml](https://developers.google.com/kml/documentation/kmlreference) is used in Google Earth to display 
 various geographic elements, such as; images, place marks, polygon shapes, 3D models, etc...
@@ -54,20 +54,24 @@ and on the scala [play-geojson library](https://github.com/jroper/play-geojson).
 
 For convenience, some of these libraries are included here in the lib directory.
 
-## Packaging
+## Installation and packaging
 
-The easiest way to compile and package the application is to use [SBT](http://www.scala-sbt.org/).
+To use as a library, add the following dependency to build.sbt:
+
+    libraryDependencies += "com.github.workingDog" %% "kmltogeojson" % "1.0"
+
+The easiest way to compile and package the application from source is to use [SBT](http://www.scala-sbt.org/).
 To assemble the application and all its dependencies into a single jar file type:
 
     sbt assembly
 
-This will produce "converter-0.1.jar" in the "./target/scala-2.11" directory.
+This will produce "KmlToGeojson-1.0.jar" in the "./target/scala-2.11" directory.
 
 ## Usage
 
-Once "converter-0.1.jar" has been generated simply type at the prompt:
+Once "KmlToGeojson-1.0.jar" has been generated simply type at the prompt:
  
-    java -jar converter-0.1.jar kml_file.kml geojson_file.geojson
+    java -jar KmlToGeojson-1.0.jar kml_file.kml geojson_file.geojson
  
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
 with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to console.
