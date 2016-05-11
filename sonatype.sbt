@@ -31,9 +31,9 @@ releaseProcess := Seq[ReleaseStep](
   tagRelease,
   publishArtifacts,
   ReleaseStep(action = Command.process("publishSigned", _)),
+  releaseStepCommand("sonatypeRelease"),
   setNextVersion,
   commitNextVersion,
-  ReleaseStep(action = Command.process("sonatypeReleaseAll", _)),
   pushChanges
 )
 
