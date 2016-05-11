@@ -65,7 +65,7 @@ To assemble the application and all its dependencies into a single jar file type
 
     sbt assembly
 
-This will produce "KmlToGeojson-1.0.jar" in the "./target/scala-2.11" directory.
+This will produce "kmltogeojson-1.0.jar" in the "./target/scala-2.11" directory.
 
 ## Usage
 

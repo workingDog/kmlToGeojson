@@ -23,4 +23,4 @@ mainClass in (Compile, run) := Some("com.kodekutters.KmlToGeojson")
 
 mainClass in assembly := Some("com.kodekutters.KmlToGeojson")
 
-assemblyJarName in assembly := "KmlToGeojson-1.0.jar"
+assemblyJarName in assembly := "kmltogeojson-1.0.jar"
