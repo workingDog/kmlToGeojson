@@ -1,4 +1,4 @@
-organization := "github.com.workingDog"
+organization := "com.github.workingDog"
 
 name := "kmlToGeojson"
 
