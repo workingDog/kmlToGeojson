@@ -74,7 +74,7 @@ Once the jar file has been generated, simply type at the prompt:
     java -jar kmltogeojson_2.11-1.0.jar kml_file.kml geojson_file.geojson
  
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
-with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to console.
+with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to the console.
  
 You can also use the "KmlConverter.scala" class in your code, for example: 
 
