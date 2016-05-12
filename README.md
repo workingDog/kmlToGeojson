@@ -87,8 +87,8 @@ You can also use the "KmlConverter.scala" class in your code, for example:
     }
    
 The first line "val kml =..." uses the [scalakml library](https://github.com/workingDog/scalakml) to read in a kml file.    
-The second line "val geojson =..." gives you a [play-geojson object](https://github.com/jroper/play-geojson) 
-object that is then converted to [GeoJSON](http://geojson.org/) and printed in the third line.
+The second line "val geojson =..." gives you a [play-geojson object](https://github.com/jroper/play-geojson) that 
+is then converted to [GeoJSON](http://geojson.org/) format and printed in the third line.
  
 "KmlConverter.scala" has one generic method "toGeoJson()" that takes any of the implemented Kml objects. 
 See also "TestGeoJson".
