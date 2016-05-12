@@ -69,7 +69,7 @@ This will produce "kmltogeojson_2.11-1.0.jar" in the "./target/scala-2.11" direc
 
 ## Usage
 
-Once the jar file has been generated or [downloaded from Maven](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kmltogeojson_2.11%22), simply type at the prompt:
+Once the jar file has been generated, simply type at the prompt:
  
     java -jar kmltogeojson_2.11-1.0.jar kml_file.kml geojson_file.geojson
  
