@@ -76,15 +76,20 @@ Once the jar file has been generated or [downloaded from Maven](https://search.m
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
 with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to console.
  
-You can also use the "KmlConverter.scala" class in your code, such as: 
+You can also use the "KmlConverter.scala" class in your code, for example: 
 
-    val geojson = KmlConverter().toGeoJson(kml)
-    
-This gives you a [play-geojson object](https://github.com/jroper/play-geojson) that 
-can easily be converted to [GeoJSON](http://geojson.org/) format using:
-  
-    geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
-  
+    object TestGeoJson {
+      def main(args: Array[String]) {
+        val kml = new KmlFileReader().getKmlFromFile("./kml-files/Sydney.kml")
+        val geojson = KmlConverter().toGeoJson(kml)
+        geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
+      }
+    }
+   
+The first line "val kml =..." uses the [scalakml library](https://github.com/workingDog/scalakml) to read in a kml file.    
+The second line "val geojson =..." gives you a [play-geojson object](https://github.com/jroper/play-geojson) 
+object that is then converted to [GeoJSON](http://geojson.org/) and printed in the third line.
+ 
 "KmlConverter.scala" has one generic method "toGeoJson()" that takes any of the implemented Kml objects. 
 See also "TestGeoJson".
 
