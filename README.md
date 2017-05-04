@@ -3,7 +3,7 @@
 This application **KmlToGeojson**, converts Kml and Kmz files into a GeoJSON representation. 
 
 [Kml](https://developers.google.com/kml/documentation/kmlreference) is used in Google Earth to display 
-various geographic elements, such as; images, place marks, polygon shapes, 3D models, etc...
+various geographic elements, such as; images, place marks, polygon shapes, and so on.
 
 Similarly [GeoJSON](http://geojson.org/) is a format for encoding a variety of geographic data structures.
 
@@ -54,20 +54,18 @@ and on the scala [play-geojson library](https://github.com/jroper/play-geojson).
 
 For convenience, some of these libraries are included here in the lib directory.
 
+Note, Java 8 is required.
+
 ## Installation and packaging
-
-To use as a library, add the following dependency to build.sbt:
-
-    libraryDependencies += "com.github.workingDog" %% "kmltogeojson" % "1.0"
 
 The easiest way to compile and package the application from source is to use [SBT](http://www.scala-sbt.org/).
 To assemble the application and all its dependencies into a single jar file type:
 
     sbt assembly
 
-This will produce "kmltogeojson_2.11-1.0.jar" in the "./target/scala-2.11" directory.
+This will produce "kmltogeojson_2.11-XX.jar" in the "./target/scala-2.11" directory.
 
-For convenience a build **kmltogeojson_2.11-1.0.jar** file is included in the lib directory.
+You can download the **kmltogeojson_2.11-1.0.jar** file from [maven repository](https://mvnrepository.com/artifact/com.github.workingDog/kmltogeojson_2.11)
 
 ## Usage
 
@@ -78,28 +76,30 @@ Once you have the jar file, simply type at the prompt:
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
 with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to the console.
  
-You can also use the "KmlConverter.scala" class in your code, for example: 
+You can also use this library in your scala code. First add the following dependency to your build.sbt file:
+
+    libraryDependencies += "com.github.workingDog" %% "kmltogeojson" % "1.0"
+
+Then, for example:
 
     object TestGeoJson {
       def main(args: Array[String]) {
+        // read a kml document from file
         val kml = new KmlFileReader().getKmlFromFile("./kml-files/Sydney.kml")
+        // convert the kml document to geojson format
         val geojson = KmlConverter().toGeoJson(kml)
+        // print the geojson objects
         geojson.foreach(obj => println(Json.prettyPrint(Json.toJson(obj))))
       }
     }
    
-In main, the first line uses the [scalakml library](https://github.com/workingDog/scalakml) to read in a kml document from file.    
-The second line converts the kml document to a [play-geojson object](https://github.com/jroper/play-geojson). 
-The third line prints the object to [GeoJSON](http://geojson.org/) format .
- 
-"KmlConverter.scala" has one generic method "toGeoJson()" that takes any of the implemented Kml objects. 
+The **KmlConverter.scala** has one generic method **toGeoJson()** that takes any of the implemented Kml objects. 
 See also "TestGeoJson".
 
 ## Status
 
-stable
+Stable.
 
 Using Scala 2.11.11, Java 8 and SBT-0.13.13.
 
 
-Ringo Wathelet

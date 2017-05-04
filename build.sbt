@@ -19,8 +19,8 @@ homepage := Some(url("https://github.com/workingDog/kmlToGeojson"))
 
 licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-mainClass in (Compile, run) := Some("com.kodekutters.KmlToGeojson")
+mainClass in(Compile, run) := Some("com.kodekutters.KmlToGeojson")
 
 mainClass in assembly := Some("com.kodekutters.KmlToGeojson")
 
-assemblyJarName in assembly := "kmltogeojson-1.0.jar"
+assemblyJarName in assembly := "kmltogeojson_2.11-1.1-SNAPSHOT.jar"
