@@ -4,15 +4,15 @@ name := "kmlToGeojson"
 
 version := (version in ThisBuild).value
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.11"
 
-crossScalaVersions := Seq("2.11.8")
+crossScalaVersions := Seq("2.11.11")
 
 libraryDependencies ++= Seq(
-  "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.6",
-  "com.typesafe.play" % "play-json_2.11" % "2.5.13",
-  "com.typesafe.play.extras" % "play-geojson_2.11" % "1.4.0",
-  "com.github.workingDog" % "scalakml_2.11" % "1.0"
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
+  "com.typesafe.play" %% "play-json" % "2.5.14",
+  "com.typesafe.play.extras" %% "play-geojson" % "1.4.0",
+  "com.github.workingDog" %% "scalakml" % "1.1"
 )
 
 homepage := Some(url("https://github.com/workingDog/kmlToGeojson"))

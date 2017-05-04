@@ -1,18 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:gx="http://www.google.com/kml/ext/2.2">
      <Document>
-     <name>doc name</name>
-            <Region>
-                <LatLonAltBox>
-                  <north>38.430419921875</north>
-                  <south>38.41943359375</south>
-                  <east>-133.080078125</east>
-                  <west>-133.091064453125</west>
-                </LatLonAltBox>
-                <Lod>
-                  <minLodPixels>128</minLodPixels>
-                </Lod>
-              </Region>
+     <name>doc name is ignored</name>
      <Placemark id="placemarkid">
        <Region>
            <LatLonAltBox>
