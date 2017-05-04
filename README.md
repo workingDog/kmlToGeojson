@@ -99,7 +99,7 @@ See also "TestGeoJson".
 
 stable
 
-Using Scala 2.11.8, Java 8 and SBT-0.13.13.
+Using Scala 2.11.11, Java 8 and SBT-0.13.13.
 
 
 Ringo Wathelet
