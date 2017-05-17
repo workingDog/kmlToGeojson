@@ -63,15 +63,15 @@ To assemble the application and all its dependencies into a single jar file type
 
     sbt assembly
 
-This will produce "kmltogeojson_2.11-XX.jar" in the "./target/scala-2.11" directory.
+This will produce "kmltogeojson_2.11-X.X.jar" in the "./target/scala-2.11" directory.
 
-You can download the **kmltogeojson_2.11-1.0.jar** file from [maven repository](https://mvnrepository.com/artifact/com.github.workingDog/kmltogeojson_2.11)
+For convenience a **kmltogeojson_2.11-1.1.jar** file is in the "distrib" directory.
 
 ## Usage
 
 Once you have the jar file, simply type at the prompt:
  
-    java -jar kmltogeojson_2.11-1.0.jar kml_file.kml geojson_file.geojson
+    java -jar kmltogeojson_2.11-1.1.jar kml_file.kml geojson_file.geojson
  
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
 with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to the console.
