@@ -3,8 +3,8 @@ package com.kodekutters
 import java.io.{IOException, File, PrintWriter}
 
 import com.scalakml.io.{KmzFileReader, KmlFileReader}
-import play.api.libs.json.Json
-import play.extras.geojson.GeoJson
+import au.id.jazzy.play.geojson._
+import play.api.libs.json._
 
 /**
   * converts a Kml or Kmz file into a GeoJSON representation

@@ -2,10 +2,9 @@ package com.kodekutters
 
 import com.scalakml.kml._
 import com.scalakml.{kml => KML}
-
-import play.extras.{geojson => GEOJS}
+import au.id.jazzy.play.geojson._
+import au.id.jazzy.play.{geojson => GEOJS}
 import play.api.libs.json._
-import play.extras.geojson._
 
 import scala.collection.mutable
 import scala.collection.mutable.MutableList
@@ -63,7 +62,8 @@ class KmlConverter() {
     * convert a Kml object into a list of GeoJson objects
     * @return a list GeoJson objects
     */
-  def toGeoJson(kmlOpt: Option[Kml]): Option[List[GEOJS.GeoJson[LatLngAlt]]] = kmlOpt.map(kml => (for (f <- kml.feature) yield toGeoJson(f)).flatten.toList)
+  def toGeoJson(kmlOpt: Option[Kml]): Option[List[GEOJS.GeoJson[LatLngAlt]]] =
+    kmlOpt.map(kml => (for (f <- kml.feature) yield toGeoJson(f)).flatten.toList)
 
   /**
     * convert a Kml object into a list of GeoJson objects
