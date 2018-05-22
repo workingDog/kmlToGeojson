@@ -22,7 +22,7 @@ object KmlToGeojson {
   * convert a Kml or Kmz file into a GeoJSON representation
   */
   def main(args: Array[String]) {
-    val usage = """Usage: java -jar kmltogeojson_2.11-1.0.jar kml_file.kml geojson_file.geojson""".stripMargin
+    val usage = """Usage: java -jar kmltogeojson-1.1.jar kml_file.kml geojson_file.geojson""".stripMargin
     if (args.isEmpty)
       println(usage)
     else {
