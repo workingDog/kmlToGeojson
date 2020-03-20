@@ -37,20 +37,6 @@ Everything else is ignored.
  
 Only [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System) coordinate reference system 
 is supported and all longitudes and latitudes are in decimal degrees.
- 
-## References
- 
-1) OGC 07-147r2 Version: 2.2.0, Category: OGC Standard, Editor: Tim Wilson, at http://www.opengeospatial.org/standards/kml
-
-2) Google developers KML Reference, at https://developers.google.com/kml/documentation/kmlreference
-
-3) GeoJSON reference document, at http://geojson.org/geojson-spec.html
-
-## Dependencies
-
-Depends on the scala [scalakml library](https://github.com/workingDog/scalakml)
-and its companion library [scalaxal](https://github.com/workingDog/scalaxal), 
-and on the scala [play-geojson library](https://github.com/jroper/play-geojson).
 
 ## Installation and packaging
 
@@ -61,8 +47,7 @@ To package the application and all its dependencies into a single jar file type:
 
 This will produce "kmltogeojson-1.2.jar" in the "./target/scala-2.13" directory.
 
-For convenience a **kmltogeojson-1.2.jar** file is in the "distrib" directory ready for use.
-
+#### For convenience a **kmltogeojson-1.2.jar** file is in the "distrib" directory ready for use.
 
 ## Usage
 
@@ -92,6 +77,19 @@ Then, for example:
    
 The **KmlConverter.scala** has one generic method **toGeoJson()** that takes any of the implemented Kml objects. 
 See also "TestGeoJson".
+ 
+## Dependencies
+
+Depends on the scala [scalakml library](https://github.com/workingDog/scalakml), 
+and on the scala [play-geojson library](https://github.com/jroper/play-geojson).
+
+## References
+ 
+1) OGC 07-147r2 Version: 2.2.0, Category: OGC Standard, Editor: Tim Wilson, at http://www.opengeospatial.org/standards/kml
+
+2) Google developers KML Reference, at https://developers.google.com/kml/documentation/kmlreference
+
+3) GeoJSON reference document, at http://geojson.org/geojson-spec.html
 
 ## Status
 
