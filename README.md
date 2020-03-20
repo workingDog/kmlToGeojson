@@ -52,8 +52,6 @@ Depends on the scala [scalakml library](https://github.com/workingDog/scalakml)
 and its companion library [scalaxal](https://github.com/workingDog/scalaxal), 
 and on the scala [play-geojson library](https://github.com/jroper/play-geojson).
 
-Note, Java 8 is required.
-
 ## Installation and packaging
 
 The easiest way to compile and package the application from source is to use [SBT](http://www.scala-sbt.org/).
@@ -61,23 +59,23 @@ To package the application and all its dependencies into a single jar file type:
 
     sbt assembly
 
-This will produce "kmltogeojson-1.1.jar" in the "./target/scala-2.12" directory.
+This will produce "kmltogeojson-1.2.jar" in the "./target/scala-2.13" directory.
 
-For convenience a **kmltogeojson-1.1.jar** file is in the "distrib" directory ready for use.
+For convenience a **kmltogeojson-1.2.jar** file is in the "distrib" directory ready for use.
 
 
 ## Usage
 
 Once you have the jar file, simply type at the prompt:
  
-    java -jar kmltogeojson-1.1.jar kml_file.kml geojson_file.geojson
+    java -jar kmltogeojson-1.2.jar kml_file.kml geojson_file.geojson
  
 where "kml_file.kml" is the Kml file you want to convert, and "geojson_file.geojson" is the destination file 
 with the [GeoJSON](http://geojson.org/) format results. If the "geojson_file.geojson" is absent, the output is directed to the console.
  
 You can also use this library in your scala code. First add the following dependency to your build.sbt file:
 
-    libraryDependencies += "com.github.workingDog" %% "kmltogeojson" % "1.1"
+    libraryDependencies += "com.github.workingDog" %% "kmltogeojson" % "1.2"
 
 Then, for example:
 
@@ -99,6 +97,6 @@ See also "TestGeoJson".
 
 Stable.
 
-Using Scala 2.12.6, Java 8 and SBT-1.1.5.
+Using Scala 2.13.1, Java 11 and SBT-1.3.8.
 
 

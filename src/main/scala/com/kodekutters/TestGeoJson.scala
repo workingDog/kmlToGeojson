@@ -12,13 +12,12 @@
 //
 //object TestGeoJson {
 //
-//  def main(args: Array[String]) {
-//
+//  def main(args: Array[String]): Unit = {
 //      test1()
 //      test2()
 //  }
 //
-//  def test1() = {
+//  def test1(): Unit = {
 //    println("--------- start of test1 ----------")
 //    val kml = new KmlFileReader().getKmlFromFile("./kml-files/Sydney.kml")
 //    val geojson = KmlConverter().toGeoJson(kml)
@@ -26,7 +25,7 @@
 //    println("--------- end of test1 ----------\n")
 //  }
 //
-//  def test2() = {
+//  def test2(): Unit = {
 //    println("--------- start of test2 ----------")
 //    val coord = new Coordinate(151.21037, -33.8526)
 //    val coords = Seq.empty :+ new Coordinate(152.21037, -32.8526) :+ new Coordinate(123.456, -37.890) :+ coord

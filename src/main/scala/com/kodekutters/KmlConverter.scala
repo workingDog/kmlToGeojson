@@ -7,7 +7,7 @@ import au.id.jazzy.play.{geojson => GEOJS}
 import play.api.libs.json._
 
 import scala.collection.mutable
-import scala.collection.mutable.MutableList
+import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.Seq
 
 /**
@@ -139,7 +139,7 @@ class KmlConverter() {
       case theList if theList.isEmpty => None
       case theList =>
         // to store the individual GEOJS.Feature
-        val featureList = new MutableList[GEOJS.Feature[LatLngAlt]]()
+        val featureList = new ListBuffer[GEOJS.Feature[LatLngAlt]]()
         for (geoObj <- theList) {
           geoObj match {
             // expand any FeatureCollection into a list of GEOJS.Feature
@@ -246,7 +246,7 @@ class KmlConverter() {
     * @return a GeoJson Polygon object
     */
   def toGeoJson(poly: KML.Polygon): Option[GEOJS.GeoJson[LatLngAlt]] = {
-    val locations = new MutableList[LatLngAlt]()
+    val locations = new ListBuffer[LatLngAlt]()
 
     // first the outer boundary
     poly.outerBoundaryIs.foreach(

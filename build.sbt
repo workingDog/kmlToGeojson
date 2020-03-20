@@ -4,17 +4,17 @@ name := "kmlToGeojson"
 
 version := (version in ThisBuild).value
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.13.1"
 
-crossScalaVersions := Seq("2.12.6")
+crossScalaVersions := Seq("2.13.1")
 
 resolvers += Resolver.bintrayRepo("jroper", "maven")
 
 libraryDependencies ++= Seq(
-  "org.scala-lang.modules" %% "scala-xml" % "1.1.0",
-  "com.typesafe.play" %% "play-json" % "2.6.9",
-  "au.id.jazzy" %% "play-geojson" % "1.5.0",
-  "com.github.workingDog" %% "scalakml" % "1.4"
+  "org.scala-lang.modules" %% "scala-xml" % "2.0.0-M1",
+  "com.typesafe.play" %% "play-json" % "2.8.1",
+  "au.id.jazzy" %% "play-geojson" % "1.6.0",
+  "com.github.workingDog" %% "scalakml" % "1.5"
 )
 
 homepage := Some(url("https://github.com/workingDog/kmlToGeojson"))
@@ -33,6 +33,7 @@ assemblyMergeStrategy in assembly := {
   case PathList(xs@_*) if xs.last endsWith "LICENSES.txt" => MergeStrategy.discard
   case PathList(xs@_*) if xs.last endsWith "LICENSE.txt" => MergeStrategy.discard
   case PathList(xs@_*) if xs.last endsWith "logback.xml" => MergeStrategy.discard
+  case PathList(xs@_*) if xs.last endsWith "module-info.class" => MergeStrategy.discard
   case x =>
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
